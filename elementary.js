@@ -19,4 +19,5 @@ const divide = (a, b) => {
   return a < 0 !== b < 0 ? -count : count;
 };
 
-const modulo = (a, b) => a - divide(a, b) * b;
+const modulo = (a, b) => a - multiply(divide(a, b), b)
+
