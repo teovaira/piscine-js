@@ -1,4 +1,5 @@
 const sums = (n) => {
+  if (n === 0) return [];
   const result = [];
 
   const search = (remaining, min, current) => {
