@@ -1,19 +1,27 @@
 const trunc = (n) => {
-  let i = 0;
   if (n >= 0) {
+    let i = 0;
     while (i + 1 <= n) i++;
-  } else {
-    while (i - 1 > n) i--;
+    return i;
   }
+  let i = 0;
+  while (i - 1 >= n) i--;
   return i;
 };
 
-const floor = (n) => (trunc(n) === n ? n : n < 0 ? trunc(n) - 1 : trunc(n));
+const floor = (n) => {
+  const t = trunc(n);
+  if (t === n) return n;
+  return n < 0 ? t - 1 : t;
+};
 
-const ceil = (n) => (trunc(n) === n ? n : n < 0 ? trunc(n) : trunc(n) + 1);
+const ceil = (n) => {
+  const t = trunc(n);
+  if (t === n) return n;
+  return n < 0 ? t : t + 1;
+};
 
 const round = (n) => {
-  const frac = n - trunc(n);
-  const absFrac = frac < 0 ? -frac : frac;
-  return absFrac >= 0.5 ? ceil(n) : floor(n);
+  const f = floor(n);
+  return n - f >= 0.5 ? f + 1 : f;
 };
