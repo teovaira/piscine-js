@@ -1,6 +1,6 @@
-const cutFirst = (str) => str.substring(2)
-const cutLast = (str) => str.substring(0, str.length - 2)
-const cutFirstLast = (str) => str.substring(2, str.length - 2)
-const keepFirst = (str) => str.substring(0, 2)
-const keepLast = (str) => str.substring(str.length - 2)
-const keepFirstLast = (str) => str.substring(0, 2) + str.substring(str.length - 2)
+const cutFirst = (str) => str.slice(2);
+const cutLast = (str) => str.slice(0, str.length - 2);
+const cutFirstLast = (str) => str.slice(2, str.length - 2);
+const keepFirst = (str) => str.slice(0, 2);
+const keepLast = (str) => str.slice(str.length - 2);
+const keepFirstLast = (str) => str.slice(0, 2) + str.slice(str.length - 2);
