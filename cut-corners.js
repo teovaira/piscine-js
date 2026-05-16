@@ -3,7 +3,7 @@ const trunc = (n) => {
   if (n >= 0) {
     while (i + 1 <= n) i++;
   } else {
-    while (i - 1 >= n) i--;
+    while (i - 1 > n) i--;
   }
   return i;
 };
@@ -17,4 +17,3 @@ const round = (n) => {
   const absFrac = frac < 0 ? -frac : frac;
   return absFrac >= 0.5 ? ceil(n) : floor(n);
 };
-
