@@ -4,7 +4,7 @@ const sums = (n) => {
 
   const search = (remaining, min, current) => {
     if (remaining === 0) {
-      result.push([...current]);
+      if (current.length >= 2) result.push([...current]);
       return;
     }
     for (let i = min; i <= remaining; i++) {
