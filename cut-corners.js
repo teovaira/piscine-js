@@ -1,12 +1,14 @@
 const trunc = (n) => {
-  if (n >= 0) {
-    let i = 0;
-    while (i + 1 <= n) i++;
-    return i;
+  if (n < 0) return -trunc(-n);
+  if (n < 1) return 0;
+  let step = 1;
+  while (step * 2 <= n) step *= 2;
+  let result = 0;
+  while (step >= 1) {
+    while (result + step <= n) result += step;
+    step /= 2;
   }
-  let i = 0;
-  while (i - 1 >= n) i--;
-  return i;
+  return result;
 };
 
 const floor = (n) => {
