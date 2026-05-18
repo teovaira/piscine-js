@@ -1,5 +1,6 @@
 const format = (date, str) => {
   const y = date.getFullYear();
+  const absY = Math.abs(y);
   const M = date.getMonth();
   const d = date.getDate();
   const H = date.getHours();
@@ -51,8 +52,8 @@ const format = (date, str) => {
   const padY = (n) => String(n).padStart(4, "0");
 
   const tokens = {
-    yyyy: padY(y),
-    y: String(y),
+    yyyy: padY(absY),
+    y: String(absY),
     GGGG: y > 0 ? "Anno Domini" : "Before Christ",
     G: y > 0 ? "AD" : "BC",
     MMMM: months[M],
