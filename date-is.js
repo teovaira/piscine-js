@@ -1,4 +1,7 @@
-const isValid = (date) => date instanceof Date && !isNaN(date.getTime());
+const isValid = (date) => {
+  if (typeof date === "number") return !isNaN(date);
+  return date instanceof Date && !isNaN(date.getTime());
+};
 
 const isAfter = (date1, date2) => date1 > date2;
 
