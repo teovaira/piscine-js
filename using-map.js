@@ -26,6 +26,9 @@ const tempForecasts = (arr) =>
     const f = parseInt(obj.temperature);
     const c = Math.floor(((f - 32) * 5) / 9);
     const city = obj.city;
-    const state = obj.state[0].toUpperCase() + obj.state.slice(1);
+    const state = obj.state
+      .split(" ")
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(" ");
     return `${c}°Celsius in ${city}, ${state}`;
   });
