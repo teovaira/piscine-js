@@ -16,9 +16,10 @@ const fahrenheitToCelsius = (arr) =>
 
 const trimTemp = (arr) =>
   arr.map((obj) => ({
-    city: obj.city,
+    ...obj,
     temperature: obj.temperature.replace(/\s/g, ""),
   }));
+
 
 const tempForecasts = (arr) =>
   arr.map((obj) => {
