@@ -20,14 +20,6 @@ export const grid = () => {
   ranges.append(widthRange, fontRange, bgRange);
   document.body.append(ranges);
 
-  const addCard = (text, prepend = false) => {
-    const div = document.createElement("div");
-    div.className = "gossip";
-    div.textContent = text;
-    prepend ? document.body.prepend(div) : document.body.append(div);
-    return div;
-  };
-
   const form = document.createElement("form");
   form.className = "gossip";
   const textarea = document.createElement("textarea");
@@ -37,12 +29,20 @@ export const grid = () => {
   form.append(textarea, submit);
   document.body.append(form);
 
-  gossips.forEach((g) => addCard(g));
+  gossips.forEach((g) => {
+    const div = document.createElement("div");
+    div.className = "gossip";
+    div.textContent = g;
+    document.body.append(div);
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (textarea.value.trim()) {
-      addCard(textarea.value.trim());
+      const div = document.createElement("div");
+      div.className = "gossip";
+      div.textContent = textarea.value.trim();
+      form.insertAdjacentElement("afterend", div);
       textarea.value = "";
     }
   });
@@ -52,11 +52,9 @@ export const grid = () => {
   widthRange.addEventListener("input", () => {
     cards().forEach((c) => (c.style.width = `${widthRange.value}px`));
   });
-
   fontRange.addEventListener("input", () => {
     cards().forEach((c) => (c.style.fontSize = `${fontRange.value}px`));
   });
-
   bgRange.addEventListener("input", () => {
     cards().forEach(
       (c) => (c.style.background = `hsl(30, 50%, ${bgRange.value}%)`),
