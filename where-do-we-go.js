@@ -7,8 +7,9 @@ export const explore = () => {
 
   sorted.forEach((place) => {
     const section = document.createElement("section");
- const name = place.name.toLowerCase().replace(/,/g, "").replace(/ /g, "-");
- section.style.background = `url(./where-do-we-go_images/${name}.jpg) center/cover no-repeat`;
+const name = place.name.toLowerCase().split(",")[0].trim().replace(/ /g, "-");
+section.style.background = `url(./where-do-we-go_images/${name}.jpg) center/cover no-repeat`;
+
 
 
     document.body.append(section);
