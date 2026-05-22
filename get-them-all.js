@@ -11,17 +11,15 @@ export const getClassical = () => {
 };
 
 export const getActive = () => {
-  const active = [...document.querySelectorAll("a.classical:not(.active)")];
-  const nonActive = [...document.querySelectorAll("a.classical.active")];
+  const active = [...document.querySelectorAll("a.classical.active")];
+  const nonActive = [...document.querySelectorAll("a.classical:not(.active)")];
   return [active, nonActive];
 };
 
 export const getBonannoPisano = () => {
   const bonanno = document.getElementById("BonannoPisano");
   const rest = [
-    ...document.querySelectorAll(
-      "a.classical:not(.active):not(#BonannoPisano)",
-    ),
+    ...document.querySelectorAll("a.classical.active:not(#BonannoPisano)"),
   ];
   return [bonanno, rest];
 };
