@@ -1,6 +1,6 @@
 let brickCount = 0;
 
-const build = (amount) => {
+export const build = (amount) => {
   let built = 0;
   const interval = setInterval(() => {
     built++;
@@ -8,13 +8,13 @@ const build = (amount) => {
     const brick = document.createElement("div");
     brick.id = `brick-${brickCount}`;
     const column = brickCount % 3;
-    if (column === 2) brick.dataset.foundation = true;
+    if (column === 2) brick.dataset.foundation = "true";
     document.body.append(brick);
     if (built >= amount) clearInterval(interval);
   }, 100);
 };
 
-const repair = (...ids) => {
+export const repair = (...ids) => {
   for (const id of ids) {
     const brick = document.getElementById(id);
     if (!brick) continue;
@@ -26,7 +26,7 @@ const repair = (...ids) => {
   }
 };
 
-const destroy = () => {
+export const destroy = () => {
   const brick = document.getElementById(`brick-${brickCount}`);
   if (brick) {
     brick.remove();
