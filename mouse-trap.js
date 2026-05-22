@@ -3,9 +3,9 @@ export const createCircle = () => {
     const circle = document.createElement("div");
     circle.className = "circle";
     circle.style.background = "white";
-    circle.style.left = `${e.clientX}px`;
-    circle.style.top = `${e.clientY}px`;
     circle.style.position = "fixed";
+    circle.style.left = `${e.clientX - 25}px`;
+    circle.style.top = `${e.clientY - 25}px`;
     document.body.append(circle);
   });
 };
@@ -16,8 +16,8 @@ export const moveCircle = () => {
     if (circles.length === 0) return;
     const last = circles[circles.length - 1];
     if (last.dataset.trapped) return;
-    last.style.left = `${e.clientX}px`;
-    last.style.top = `${e.clientY}px`;
+    last.style.left = `${e.clientX - 25}px`;
+    last.style.top = `${e.clientY - 25}px`;
     checkTrap(last);
   });
 };
