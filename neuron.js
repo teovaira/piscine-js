@@ -12,8 +12,8 @@ const neuron = (arr) => {
     const key = content
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "_")
-      .replace(/_+$/g, "");
-    const contentKey = category === "questions" ? "question" : "order";
+      .replace(/_+$/, "");
+    const contentKey = category.replace(/s$/, "");
 
     if (!result[category][key]) {
       result[category][key] = { [contentKey]: content, responses: [] };
