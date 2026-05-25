@@ -8,7 +8,11 @@ const replica = (target, ...sources) => {
         !Array.isArray(source[key]) &&
         !(source[key] instanceof RegExp)
       ) {
-        if (target[key] === null || typeof target[key] !== "object") {
+        if (
+          !target[key] ||
+          typeof target[key] !== "object" ||
+          Array.isArray(target[key])
+        ) {
           target[key] = {};
         }
         replica(target[key], source[key]);
