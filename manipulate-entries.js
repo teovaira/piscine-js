@@ -11,14 +11,14 @@ const reduceEntries = (obj, fn, init) => {
   return entries.reduce(fn, init);
 };
 
-const totalCalories = (cart) =>
-  reduceEntries(
+const totalCalories = (cart) => {
+  const total = reduceEntries(
     cart,
-    (acc, [name, grams]) => {
-      return acc + (nutritionDB[name].calories * grams) / 100;
-    },
+    (acc, [name, grams]) => acc + (nutritionDB[name].calories * grams) / 100,
     0,
   );
+  return Math.round(total * 10) / 10;
+};
 
 const lowCarbs = (cart) =>
   filterEntries(
