@@ -31,7 +31,8 @@ const cartTotal = (cart) =>
     const facts = nutritionDB[name];
     const scaled = {};
     for (const key in facts) {
-      scaled[key] = parseFloat(((facts[key] * grams) / 100).toFixed(1));
+      scaled[key] = Math.round(((facts[key] * grams) / 100) * 100) / 100;
     }
     return [name, scaled];
   });
+
