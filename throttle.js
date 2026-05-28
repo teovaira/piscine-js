@@ -14,8 +14,8 @@ const opThrottle = (fn, wait, options = {}) => {
   let timer;
   const hasLeading = "leading" in options;
   const hasTrailing = "trailing" in options;
-  const leading = hasLeading ? options.leading : !hasTrailing;
-  const trailing = hasTrailing ? options.trailing : !hasLeading;
+  const leading = hasLeading ? options.leading : false;
+  const trailing = hasTrailing ? options.trailing : false;
 
   return (...args) => {
     const now = Date.now();
@@ -27,7 +27,7 @@ const opThrottle = (fn, wait, options = {}) => {
       clearTimeout(timer);
       timer = null;
       last = now;
-      fn(...args);
+      if (leading) fn(...args);
     } else if (trailing) {
       clearTimeout(timer);
       timer = setTimeout(() => {
