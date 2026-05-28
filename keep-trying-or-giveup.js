@@ -19,9 +19,5 @@ const timeout =
     const timer = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("timeout")), delay),
     );
-    try {
-      return await Promise.race([callback(...args), timer]);
-    } catch (err) {
-      return new Error(err.message || "timeout");
-    }
+    return Promise.race([callback(...args), timer]);
   };
