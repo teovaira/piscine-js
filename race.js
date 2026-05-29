@@ -5,8 +5,7 @@ const race = (promises) =>
 
 const some = (promises, count) =>
   new Promise((resolve) => {
-    if (count === 0) return resolve(undefined);
-    if (!promises.length) return resolve([]);
+    if (!promises.length || count === 0) return resolve([]);
     const results = [];
     promises.forEach((p) => {
       Promise.resolve(p).then((val) => {
