@@ -7,10 +7,14 @@ const some = (promises, count) =>
   new Promise((resolve) => {
     if (!promises.length || count === 0) return resolve([]);
     const results = [];
-    promises.forEach((p) => {
+    let settled = 0;
+    promises.forEach((p, i) => {
       Promise.resolve(p).then((val) => {
-        results.push(val);
-        if (results.length === count) resolve(results);
+        results.push({ i, val });
+        settled++;
+        if (settled === count) {
+          resolve(results.sort((a, b) => a.i - b.i).map((r) => r.val));
+        }
       });
     });
   });
