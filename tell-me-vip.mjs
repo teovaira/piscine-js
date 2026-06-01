@@ -16,7 +16,7 @@ const guests = await Promise.all(
 );
 
 const vips = guests
-  .filter((g) => g.answer === "YES")
+  .filter((g) => g.answer.toUpperCase() === "YES")
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const output = vips.map((g, i) => `${i + 1}. ${g.name}`).join("\n");
