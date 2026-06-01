@@ -9,31 +9,30 @@ const authorized = {
 
 const readBody = (req) =>
   new Promise((resolve, reject) => {
-    const chunks = [];
-    req.on("data", (chunk) => chunks.push(chunk));
-    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    let body = "";
+    req.setEncoding("utf8");
+    req.on("readable", () => {
+      let chunk;
+      while ((chunk = req.read()) !== null) body += chunk;
+    });
+    req.on("end", () => resolve(body));
     req.on("error", reject);
   });
 
 const server = createServer(async (req, res) => {
   res.setHeader("Content-Type", "application/json");
-
   const body = await readBody(req);
-
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
     res.writeHead(401);
     return res.end(JSON.stringify("Authorization Required"));
   }
-
   const base64 = authHeader.split(" ")[1];
   const [user, password] = Buffer.from(base64, "base64").toString().split(":");
-
   if (authorized[user] !== password) {
     res.writeHead(401);
     return res.end(JSON.stringify("Authorization Required"));
   }
-
   try {
     const name = req.url.slice(1);
     await mkdir("guests", { recursive: true });
