@@ -32,10 +32,11 @@ const server = createServer(async (req, res) => {
   try {
     const name = req.url.slice(1);
     await mkdir("guests", { recursive: true });
-    await writeFile(`guests/${name}.json`, body);
-    const saved = await readFile(`guests/${name}.json`, "utf8");
+    const parsed = JSON.parse(body);
+    const json = JSON.stringify(parsed);
+    await writeFile(`guests/${name}.json`, json);
     res.writeHead(200);
-    res.end(saved);
+    res.end(json);
   } catch (err) {
     res.writeHead(500);
     res.end(JSON.stringify({ error: "server failed" }));
