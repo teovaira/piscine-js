@@ -33,7 +33,7 @@ const server = createServer(async (req, res) => {
       req.on("error", reject);
     });
     await writeFile(`guests/${name}.json`, body);
-    res.writeHead(201);
+    res.writeHead(200);
     res.end(body);
   } catch {
     res.writeHead(500);
