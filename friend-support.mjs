@@ -6,7 +6,7 @@ const server = createServer(async (req, res) => {
   try {
     const name = req.url.slice(1);
     try {
-      const content = await readFile(`${name}.json`, "utf8");
+      const content = await readFile(`guests/${name}.json`, "utf8");
       res.writeHead(200);
       res.end(content);
     } catch {
