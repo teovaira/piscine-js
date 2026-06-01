@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 
 const authorized = {
   Caleb_Squires: "abracadabra",
@@ -36,6 +36,7 @@ const server = createServer(async (req, res) => {
 
   try {
     const name = req.url.slice(1);
+    await mkdir("guests", { recursive: true });
     await writeFile(`guests/${name}.json`, body);
     res.writeHead(200);
     res.end(body);
