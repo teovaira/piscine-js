@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { writeFile, mkdir } from "fs/promises";
+import { writeFile, readFile, mkdir } from "fs/promises";
 
 const authorized = {
   Caleb_Squires: "abracadabra",
@@ -33,9 +33,9 @@ const server = createServer(async (req, res) => {
     const name = req.url.slice(1);
     await mkdir("guests", { recursive: true });
     await writeFile(`guests/${name}.json`, body);
+    const saved = await readFile(`guests/${name}.json`, "utf8");
     res.writeHead(200);
-    res.write(body);
-    res.end();
+    res.end(saved);
   } catch (err) {
     res.writeHead(500);
     res.end(JSON.stringify({ error: "server failed" }));
