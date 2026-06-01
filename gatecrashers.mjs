@@ -7,8 +7,18 @@ const authorized = {
   Rahima_Young: "abracadabra",
 };
 
+const readBody = (req) =>
+  new Promise((resolve, reject) => {
+    let data = "";
+    req.on("data", (chunk) => (data += chunk));
+    req.on("end", () => resolve(data));
+    req.on("error", reject);
+  });
+
 const server = createServer(async (req, res) => {
   res.setHeader("Content-Type", "application/json");
+
+  const body = await readBody(req);
 
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
@@ -26,12 +36,6 @@ const server = createServer(async (req, res) => {
 
   try {
     const name = req.url.slice(1);
-    const body = await new Promise((resolve, reject) => {
-      let data = "";
-      req.on("data", (chunk) => (data += chunk));
-      req.on("end", () => resolve(data));
-      req.on("error", reject);
-    });
     await writeFile(`guests/${name}.json`, body);
     res.writeHead(200);
     res.end(body);
