@@ -9,13 +9,9 @@ const authorized = {
 
 const readBody = (req) =>
   new Promise((resolve, reject) => {
-    let body = "";
-    req.setEncoding("utf8");
-    req.on("readable", () => {
-      let chunk;
-      while ((chunk = req.read()) !== null) body += chunk;
-    });
-    req.on("end", () => resolve(body));
+    const chunks = [];
+    req.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    req.on("end", () => resolve(Buffer.concat(chunks).toString()));
     req.on("error", reject);
   });
 
@@ -38,8 +34,9 @@ const server = createServer(async (req, res) => {
     await mkdir("guests", { recursive: true });
     await writeFile(`guests/${name}.json`, body);
     res.writeHead(200);
-    res.end(body);
-  } catch {
+    res.write(body);
+    res.end();
+  } catch (err) {
     res.writeHead(500);
     res.end(JSON.stringify({ error: "server failed" }));
   }
