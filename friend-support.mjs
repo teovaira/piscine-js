@@ -9,9 +9,13 @@ const server = createServer(async (req, res) => {
       const content = await readFile(`guests/${name}.json`, "utf8");
       res.writeHead(200);
       res.end(content);
-    } catch {
-      res.writeHead(404);
-      res.end(JSON.stringify({ error: "guest not found" }));
+    } catch (err) {
+      if (err.code === "ENOENT") {
+        res.writeHead(404);
+        res.end(JSON.stringify({ error: "guest not found" }));
+      } else {
+        throw err;
+      }
     }
   } catch {
     res.writeHead(500);
