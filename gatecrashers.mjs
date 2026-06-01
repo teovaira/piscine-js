@@ -11,9 +11,7 @@ const server = createServer((req, res) => {
   res.setHeader("Content-Type", "application/json");
 
   let data = "";
-  req.on("data", (chunk) => {
-    data += chunk;
-  });
+  req.on("data", (chunk) => (data += chunk));
   req.on("end", async () => {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
@@ -22,9 +20,10 @@ const server = createServer((req, res) => {
     }
 
     const base64 = authHeader.split(" ")[1];
-    const [user, password] = Buffer.from(base64, "base64")
-      .toString()
-      .split(":");
+    const decoded = Buffer.from(base64, "base64").toString();
+    const colon = decoded.indexOf(":");
+    const user = decoded.slice(0, colon);
+    const password = decoded.slice(colon + 1);
 
     if (authorized[user] !== password) {
       res.writeHead(401);
